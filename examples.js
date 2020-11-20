@@ -26,7 +26,29 @@ img.insertImages("dogs", [
   "https://static.wixstatic.com/media/275e2e_93afa389c9514944949dd9cda3a23b46~mv2.jpg/v1/fill/w_256,h_256,al_c,q_80,usm_0.66_1.00_0.01/Koda%20and%20Walt%20dog%20walking.webp",
 ]);
 img.setSizeToGroup(".cats", "15%", "15%", "0.83%");
-img.setSizeToGroup(".dogs", "30%", "30%", "1.66%");
+img.setSizeToGroup(".dogs", "15%", "15%", "0.83%");
+// img.setSizeToGroup(".cats", "30%", "30%", "1.66%");
+// img.setSizeToGroup(".dogs", "30%", "30%", "1.66%");
 img.changeDirectionOfGroup(".cats", "row");
 img.addClickableHeart(".cats", "200%", "click");
-img.addClickableHeart(".dogs", "400%", "mouseover");
+img.addClickableHeart(".dogs", "200%", "click");
+
+const mf = new mouseFollower();
+
+mf.generateMouseFollower();
+mf.removeMouseFollowerBy("keydown");
+
+mf.setProperty("rgba(0,12,342,0.3)", "auto", "auto");
+mf.addImages(
+  [
+    "https://i.pinimg.com/originals/06/87/85/0687851cc6a9bb1213b5a12c9f8408ac.png",
+    "https://www.dictionary.com/e/wp-content/uploads/2018/09/smirking-face-300x300.png",
+    "https://i.pinimg.com/originals/33/f2/95/33f29537979ddcc9512bd9b07413c37e.png",
+    "https://www.papertraildesign.com/wp-content/uploads/2017/06/emoji-nerd-glasses.png",
+  ],
+  "50px",
+  "50px",
+  true
+);
+//mf.addText("Adult", "20px", "bold", "black", "center"); //addText conflicts with the overlap images
+mf.toggleImages("click");
