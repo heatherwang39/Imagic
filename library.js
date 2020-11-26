@@ -29,7 +29,6 @@ ImageGenerator.prototype = {
     body.append(groupContainer);
     // this.classLists.push(className);
     this.className = className;
-    log(this.elements);
   },
 
   setSizeToGroup: function (width, height, margin) {
@@ -75,7 +74,7 @@ ImageGenerator.prototype = {
       imageContainer.style.position = "relative";
       const heart = document.createElement("div");
       heart.innerHTML = `&hearts;`;
-      heart.style = `font-size:${heartSize};color:red;opacity:0.2;position:absolute;bottom:6%;right:10%`;
+      heart.style = `font-size:${heartSize};color:red;opacity:0.2;position:absolute;bottom:8%;right:10%`;
       let likeStatus = "unlike";
 
       imageContainer.append(heart);
@@ -98,21 +97,41 @@ ImageGenerator.prototype = {
         log(
           `The counter for the whole ${self.className} group is: ${self.groupCounter}`
         );
+        //update the counter
       });
+    }
+  },
+
+  //textlist should have the same length of the group, otherwise the subtitle will be the same elements and all the same
+  addTitle(textlist) {
+    className = `.${this.className}`;
+    const imageContainers = document.querySelectorAll(className);
+    let index = 0;
+    for (let imageContainer of imageContainers) {
+      const textDiv = document.createElement("div");
+      if (textlist.length == this.elements.length) {
+        textDiv.innerText = textlist[index];
+      } else {
+        textDiv.innerText = textlist[0];
+      }
+      textDiv.style =
+        "font-size:15px;color:gray;text-align:center;font-weight:200;";
+      imageContainer.append(textDiv);
+      index++;
     }
   },
 };
 
-function mouseFollower() {
+function MouseFollower() {
   this.follower = {};
   this.timer = {};
 }
-mouseFollower.prototype = {
+MouseFollower.prototype = {
   generateMouseFollower() {
     const body = document.querySelector("body");
     const div = document.createElement("div");
     div.style =
-      "width:100px;height:100px;background-color:pink;position:absolute;";
+      "width:100px;height:100px;background-color:pink;position:absolute;font-family:Comic Sans MS;";
     body.append(div);
 
     document.addEventListener("mousemove", function (e) {
