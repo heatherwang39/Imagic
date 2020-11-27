@@ -91,12 +91,10 @@ ImageGenerator.prototype = {
         const index = currentId.split(self.className).pop();
         self.seperateCounter[index]++;
         log(
-          `The counter for ${currentId} image in ${self.className} group is: ${self.seperateCounter[index]}`
+          `${currentId} image in ${self.className} group counter: ${self.seperateCounter[index]}`
         );
         self.groupCounter++;
-        log(
-          `The counter for the whole ${self.className} group is: ${self.groupCounter}`
-        );
+        log(`the whole ${self.className} group counter: ${self.groupCounter}`);
         //update the counter
       });
     }
