@@ -41,8 +41,9 @@ dogImgs.setSizeToGroup("30%", "30%", "1.66%"); // dogImgs.setSizeToGroup("15%", 
 
 //catImgs.changeDirectionOfGroup("column");//align as row by default. can be row, column and overlap
 
-catImgs.addHeart("200%", "click");
-dogImgs.addHeart("200%", "click");
+catImgs.addElement("&starf;", "200%", "click");
+dogImgs.addElement("&#128681", "200%", "click");
+catImgs.addElements("click");
 
 // catImgs.addTitle(["Jimmy", "Becky", "Heather", "Tom", "Jerry", "Aya"]);
 catImgs.addTitle(catImgs.elements); //use the id as the title

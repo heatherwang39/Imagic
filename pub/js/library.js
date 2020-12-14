@@ -64,42 +64,6 @@ ImageGenerator.prototype = {
     log(`Direction of ${direction} has been set!`);
   },
 
-  //event:click,mouover,keydown
-  //element:heart,flag
-  //heartSize should be 100%-500%
-  addHeart(heartSize, eventType) {
-    className = `.${this.className}`;
-    const imageContainers = document.querySelectorAll(className);
-    for (let imageContainer of imageContainers) {
-      imageContainer.style.position = "relative";
-      const heart = document.createElement("div");
-      heart.innerHTML = `&hearts;`;
-      heart.style = `font-size:${heartSize};color:red;opacity:0.2;position:absolute;bottom:8%;right:10%`;
-      let likeStatus = "unlike";
-
-      imageContainer.append(heart);
-      const self = this;
-      imageContainer.addEventListener(eventType, function () {
-        if (likeStatus == "unlike") {
-          heart.style.opacity = "1";
-          likeStatus = "like";
-        } else {
-          heart.style.opacity = "0.2";
-          likeStatus = "unlike";
-        }
-        const currentId = imageContainer.getAttribute("id");
-        const index = currentId.split(self.className).pop();
-        self.seperateCounter[index]++;
-        log(
-          `${currentId} image in ${self.className} group counter: ${self.seperateCounter[index]}`
-        );
-        self.groupCounter++;
-        log(`the whole ${self.className} group counter: ${self.groupCounter}`);
-        //update the counter
-      });
-    }
-  },
-
   //textlist should have the same length of the group, otherwise the subtitle will be the same elements and all the same
   addTitle(textlist) {
     className = `.${this.className}`;
@@ -116,6 +80,81 @@ ImageGenerator.prototype = {
         "font-size:15px;color:gray;text-align:center;font-weight:200;";
       imageContainer.append(textDiv);
       index++;
+    }
+  },
+
+  //event:click,mouover,keydown
+  //elementCode: html code for the element, recommended:'&#128681(flag)','&hearts;'(heart),'&starf;'(star),'&clubs;'(club in poker)
+  //elementSize should be 100%-500%
+  addElement(elementCode, elementSize, eventType) {
+    className = `.${this.className}`;
+    const imageContainers = document.querySelectorAll(className);
+    for (let imageContainer of imageContainers) {
+      imageContainer.style.position = "relative";
+      const element = document.createElement("div");
+      element.innerHTML = elementCode;
+      element.style = `font-size:${elementSize};color:red;opacity:0.2;position:absolute;bottom:8%;right:10%`;
+      let likeStatus = "unlike";
+
+      imageContainer.append(element);
+      const self = this;
+      imageContainer.addEventListener(eventType, function () {
+        if (likeStatus == "unlike") {
+          element.style.opacity = "1";
+          likeStatus = "like";
+        } else {
+          element.style.opacity = "0.2";
+          likeStatus = "unlike";
+        }
+        const currentId = imageContainer.getAttribute("id");
+        const index = currentId.split(self.className).pop();
+        self.seperateCounter[index]++;
+        log(
+          `${currentId} image in ${self.className} group counter: ${self.seperateCounter[index]}`
+        );
+        self.groupCounter++;
+        log(`the whole ${self.className} group counter: ${self.groupCounter}`);
+        //update the counter
+      });
+    }
+  },
+
+  //event:click,mouover,keydown
+  //elementCode: html code for the element, recommended:'&#128681(flag)','&hearts;'(heart).'&starf;'
+  //elementSize should be 100%-500%
+  addElements(eventType, elementCode = "&hearts;", elementColor = "red") {
+    className = `.${this.className}`;
+    const body = document.querySelector("body");
+    const imageContainers = document.querySelectorAll(className);
+    const self = this;
+    for (let imageContainer of imageContainers) {
+      imageContainer.addEventListener(eventType, function (e) {
+        const element = document.createElement("div");
+        element.innerHTML = elementCode;
+        element.style = `font-size:200%;color:${elementColor};opacity:0.8;position:absolute;`;
+        element.style.left = e.pageX - 3 + "px";
+        element.style.top = e.pageY - 12 + "px";
+        if (elementColor === "random") {
+          const randColor = () => {
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
+            const a = Math.random();
+            return `rgba(${r},${g},${b},${a})`;
+          };
+          element.style.color = randColor();
+        }
+        const currentId = imageContainer.getAttribute("id");
+        const index = currentId.split(self.className).pop();
+        self.seperateCounter[index]++;
+        log(`You've marked ${self.seperateCounter[index]} places`);
+        body.append(element);
+        element.addEventListener("click", function () {
+          element.remove();
+          self.seperateCounter[index]--;
+          log(`You've marked ${self.seperateCounter[index]} places`);
+        });
+      });
     }
   },
 };
