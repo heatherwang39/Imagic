@@ -86,14 +86,19 @@ ImageGenerator.prototype = {
   //event:click,mouover,keydown
   //elementCode: html code for the element, recommended:'&#128681(flag)','&hearts;'(heart),'&starf;'(star),'&clubs;'(club in poker)
   //elementSize should be 100%-500%
-  addElement(elementCode, elementSize, eventType) {
+  addElement(
+    eventType,
+    elementCode,
+    elementColor = "red",
+    elementSize = "200%"
+  ) {
     className = `.${this.className}`;
     const imageContainers = document.querySelectorAll(className);
     for (let imageContainer of imageContainers) {
       imageContainer.style.position = "relative";
       const element = document.createElement("div");
       element.innerHTML = elementCode;
-      element.style = `font-size:${elementSize};color:red;opacity:0.2;position:absolute;bottom:8%;right:10%`;
+      element.style = `font-size:${elementSize};color:${elementColor};opacity:0.2;position:absolute;bottom:8%;right:10%`;
       let likeStatus = "unlike";
 
       imageContainer.append(element);

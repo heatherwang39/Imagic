@@ -28,7 +28,7 @@ catImgs.insertImages("cats", [
 ]);
 
 dogImgs.insertImages("dogs", [
-  "https://static.wikia.nocookie.net/sims/images/1/10/Leader_of_the_Pack.png/revision/latest/scale-to-width-down/340?cb=20111216093107",
+  "https://a.thumbs.redditmedia.com/0i7tOG9r8W21U-T-6zte-mlFjvo-pHpKuOR6A3wWAC8.png",
   "https://styles.redditmedia.com/t5_1ys4bj/styles/profileIcon_968o7s5frbn41.jpg?width=256&height=256&crop=256:256,smart&frame=1&s=fdaa0f7cd2013d5f508976cfd4ff2e66cd6f8689",
   "https://cdn131.picsart.com/316184753010201.jpg?type=webp&to=crop&r=256",
   "https://i.pinimg.com/474x/d5/ff/4f/d5ff4fd9289929255beb60702ddd87f6.jpg",
@@ -41,9 +41,8 @@ dogImgs.setSizeToGroup("30%", "30%", "1.66%"); // dogImgs.setSizeToGroup("15%", 
 
 //catImgs.changeDirectionOfGroup("column");//align as row by default. can be row, column and overlap
 
-catImgs.addElement("&starf;", "200%", "click");
-dogImgs.addElement("&#128681", "200%", "click");
-catImgs.addElements("click");
+catImgs.addElement("click", "&hearts;");
+dogImgs.addElement("click", "&hearts;");
 
 // catImgs.addTitle(["Jimmy", "Becky", "Heather", "Tom", "Jerry", "Aya"]);
 catImgs.addTitle(catImgs.elements); //use the id as the title
