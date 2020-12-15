@@ -1,5 +1,3 @@
-console.log("this is from mapExample.js");
-
 //make the header and title
 const body = document.querySelector("body");
 body.style = "font-family: Impact;";
@@ -12,9 +10,12 @@ description.style = "margin:10px auto;color:gray;text-align:center;";
 
 const mapImg = new ImageGenerator();
 
-mapImg.insertImages("uoft", [
-  "https://www.utm.utoronto.ca/sites/files/default/public/shared/studentaffairs/images/CampusMap_bw_final.jpg",
-]);
-mapImg.setSizeToGroup("80%", "80%", "0 10%");
+function examples() {
+  mapImg.insertImages("uoft", [
+    "https://www.utm.utoronto.ca/sites/files/default/public/shared/studentaffairs/images/CampusMap_bw_final.jpg",
+  ]);
+  mapImg.setSizeToGroup("80%", "80%", "0 10%");
 
-mapImg.addElements("click", "&#128681"); //sun(&#9728;)
+  mapImg.addElements("click", "&#128681"); //sun(&#9728;)
+}
+examples();
