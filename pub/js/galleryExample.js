@@ -34,12 +34,13 @@ function examples() {
     "https://pbs.twimg.com/profile_images/602630130431762432/XJrnsLXy.jpg",
     "https://cdn.domestika.org/c_fill,dpr_auto,h_256,t_base_params.format_jpg,w_256/v1385823949/avatars/000/024/711/24711-original.jpg?1385823949",
   ]);
-  catImgs.setSizeToGroup("30%", "30%", "1.66%"); // catImgs.setSizeToGroup("15%", "15%", "0.83%");
-  dogImgs.setSizeToGroup("30%", "30%", "1.66%"); // dogImgs.setSizeToGroup("15%", "15%", "0.83%");
+  catImgs.setSizeToGroup("30%", "1.66%"); // catImgs.setSizeToGroup("15%", "15%", "0.83%");
+  dogImgs.setSizeToGroup("30%", "1.66%"); // dogImgs.setSizeToGroup("15%", "15%", "0.83%");
   catImgs.addElement("click", "&hearts;");
   dogImgs.addElement("click", "&hearts;");
   catImgs.addTitle(catImgs.elements); //use the id as the title
   dogImgs.addTitle(dogImgs.elements); //use the id as the title
+  // dogImgs.changeDirectionOfGroup("overlap");
 
   mf.generateMouseFollower();
   mf.removeMouseFollowerBy("keydown");
@@ -60,6 +61,7 @@ function examples() {
     "#50394c",
     "center"
   );
+  mf.updateTimer("#mouseFollowerTimer");
 }
 
 examples();

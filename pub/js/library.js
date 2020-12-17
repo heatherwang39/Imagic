@@ -1,6 +1,20 @@
 const log = console.log;
 
 (function (global, document) {
+  //private variables
+  let _totalImageGroups = 0;
+  let _totalMouseFollowers = 0;
+
+  //private functions
+  function _randomColor() {
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    // const a = Math.random();
+    // return `rgba(${r},${g},${b},${a})`;
+    return `rgb(${r},${g},${b})`;
+  }
+
   function ImageGenerator() {
     this.className = "";
     this.groupCounter = 0;
@@ -16,8 +30,7 @@ const log = console.log;
         const imageContainer = document.createElement("div");
         imageContainer.setAttribute("class", className);
         imageContainer.setAttribute("id", `${className}${i}`);
-        imageContainer.style =
-          "display:inline-block;width: 23%; height: 23%; margin: 1%;";
+        imageContainer.style = "display:inline-block;width: 23%;margin: 1%;";
         const image = document.createElement("img");
         image.setAttribute("src", imagesUrl[i]);
         image.style = "width:100%;height:100%;";
@@ -31,12 +44,12 @@ const log = console.log;
       this.className = className;
     },
 
-    setSizeToGroup: function (width, height, margin) {
+    setSizeToGroup: function (width, margin) {
       className = `.${this.className}`;
       const imageContainers = document.querySelectorAll(className);
       for (let imageContainer of imageContainers) {
         imageContainer.style.width = width;
-        imageContainer.style.height = height;
+        // imageContainer.style.height = height;
         imageContainer.style.margin = margin;
       }
     },
@@ -54,10 +67,12 @@ const log = console.log;
       } else if (direction == "overlap") {
         const groupContainer = imageContainers[0].parentElement;
         groupContainer.style.position = "relative";
+        let i = 0;
         for (let imageContainer of imageContainers) {
-          imageContainer.style.position = "abosolute";
+          imageContainer.style.position = "absolute";
+          imageContainer.style.zIndex = this.elements.length - i; //the first picture will show on the top
+          i++;
         }
-        log("I'm still working on it!");
       } else {
         log("Invalid Input!");
       }
@@ -129,7 +144,12 @@ const log = console.log;
     //event:click,mouover,keydown
     //elementCode: html code for the element, recommended:'&#128681(flag)','&hearts;'(heart).'&starf;'
     //elementSize should be 100%-500%
-    addElements(eventType, elementCode = "&hearts;", elementColor = "red") {
+    addElements(
+      eventType,
+      elementCode = "&hearts;",
+      elementColor = "red",
+      elementSize = "200%"
+    ) {
       className = `.${this.className}`;
       const body = document.querySelector("body");
       const imageContainers = document.querySelectorAll(className);
@@ -138,18 +158,11 @@ const log = console.log;
         imageContainer.addEventListener(eventType, function (e) {
           const element = document.createElement("div");
           element.innerHTML = elementCode;
-          element.style = `font-size:200%;color:${elementColor};opacity:0.8;position:absolute;`;
+          element.style = `font-size:${elementSize};color:${elementColor};opacity:0.8;position:absolute;`;
           element.style.left = e.pageX - 3 + "px";
           element.style.top = e.pageY - 12 + "px";
           if (elementColor === "random") {
-            const randColor = () => {
-              const r = Math.floor(Math.random() * 255);
-              const g = Math.floor(Math.random() * 255);
-              const b = Math.floor(Math.random() * 255);
-              const a = Math.random();
-              return `rgba(${r},${g},${b},${a})`;
-            };
-            element.style.color = randColor();
+            element.style.color = _randomColor();
           }
           const currentId = imageContainer.getAttribute("id");
           const index = currentId.split(self.className).pop();
@@ -168,11 +181,17 @@ const log = console.log;
 
   function MouseFollower() {
     this.follower = {};
-    this.timer = {};
+    this.duration = 0; //seconds before the user close the mouse follower
   }
+
+  //private variables _start and _end to calculate the duration of mouse follower
+  let _start = 0;
+  let _end = 0;
 
   MouseFollower.prototype = {
     generateMouseFollower() {
+      _start = new Date().getTime();
+      log(_start);
       const body = document.querySelector("body");
       const div = document.createElement("div");
       div.style =
@@ -193,7 +212,7 @@ const log = console.log;
       this.follower.style.opacity = opacity;
     },
 
-    addImages(imagesUrl, imagesWidth, imagesHeight, overlap = false) {
+    addImages(imagesUrl, imagesWidth, imagesHeight, overlap = true) {
       const imagesContainer = this.follower;
       for (let i = 0; i < imagesUrl.length; i++) {
         const imageContainer = document.createElement("div");
@@ -244,7 +263,22 @@ const log = console.log;
       const self = this;
       body.addEventListener(event, function () {
         self.follower.remove();
+        _end = new Date().getTime();
+        self.duration = (_end - _start) / 1000;
+        log(self.duration);
       });
+    },
+
+    updateTimer(selector) {
+      const divTimer = document.querySelector(selector);
+      log(divTimer);
+      const update = setInterval(() => {
+        const now = new Date().getTime();
+        divTimer.innerHTML = Math.floor((now - _start) / 1000);
+        if (this.duration > 0) {
+          clearInterval(update);
+        }
+      }, 1000);
     },
   };
 

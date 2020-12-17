@@ -14,8 +14,8 @@ function examples() {
   mapImg.insertImages("uoft", [
     "https://www.utm.utoronto.ca/sites/files/default/public/shared/studentaffairs/images/CampusMap_bw_final.jpg",
   ]);
-  mapImg.setSizeToGroup("80%", "80%", "0 10%");
+  mapImg.setSizeToGroup("80%", "0 10%");
 
-  mapImg.addElements("click", "&#128681"); //sun(&#9728;)
+  mapImg.addElements("click", "&hearts;", "random"); //sun(&#9728;),flag(&#128681)
 }
 examples();

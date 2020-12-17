@@ -1,0 +1,39 @@
+body {
+  font-family: Impact;
+  background-color: black;
+}
+
+/* reference: 
+   How To Center Vertically 
+   https://www.w3schools.com/howto/howto_css_center-vertical.asp */
+#container {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  border: 3px solid white;
+  padding: 50px;
+}
+
+#name {
+  display: flex;
+  justify-content: center;
+  font-size: 1000%;
+  color: white;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  margin: auto;
+  justify-content: space-evenly;
+}
+nav a {
+  font-size: 120%;
+  /* font-style: italic; */
+  color: white;
+  text-decoration: none;
+}
