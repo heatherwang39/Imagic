@@ -15,14 +15,45 @@ const log = console.log;
     return `rgb(${r},${g},${b})`;
   }
 
+  /**
+   * Initializes a new instance of ImageGenerator.
+   * @constructs ImageGenerator
+   */
   function ImageGenerator() {
+    /**
+     * class name of the ImageGenerator(the class name of this group of images).
+     * @name ImageGenerator#className
+     * @type {String}
+     */
     this.className = "";
+    /**
+     * counter for the this whole group of images.
+     * @name ImageGenerator#groupCounter
+     * @type {number}
+     */
     this.groupCounter = 0;
+    /**
+     * ids of each element in this group of images.
+     * @name ImageGenerator#elements
+     * @type {Array}
+     */
     this.elements = [];
+    /**
+     * counter for each element in this group of images.
+     * @name ImageGenerator#seperateCounter
+     * @type {Array}
+     */
     this.seperateCounter = [];
   }
 
   ImageGenerator.prototype = {
+    /**
+     * Insert a group of images by entering the className and a list of urls of images.
+     * @name ImageGenerator#insertImages
+     * @function
+     * @param {string} className -class name of this group of images.
+     * @param {Array<string>} imagesUrl -a list of urls of images. If only one image then input a list of only one elements.
+     */
     insertImages: function (className, imagesUrl) {
       const body = document.querySelector("body");
       const groupContainer = document.createElement("div");
@@ -44,6 +75,13 @@ const log = console.log;
       this.className = className;
     },
 
+    /**
+     * Change the size of this group of images.
+     * @name ImageGenerator#setSizeToGroup
+     * @function
+     * @param {string} width -width of each image, for example, "30%".
+     * @param {string} margin -margin of each image, for example, "1.5%" or "0 1.5%" or "10px 8px 6px 4px".
+     */
     setSizeToGroup: function (width, margin) {
       className = `.${this.className}`;
       const imageContainers = document.querySelectorAll(className);
@@ -54,7 +92,12 @@ const log = console.log;
       }
     },
 
-    //direction can be row(default), column,overlap
+    /**
+     * Change the direction(arrangement) of this group of images.
+     * @name ImageGenerator#changeDirectionOfGroup
+     * @function
+     * @param {string} direction -the direction of these images, can be row(default), column and overlap(the first image will show on the top).
+     */
     changeDirectionOfGroup: function (direction) {
       className = `.${this.className}`;
       const imageContainers = document.querySelectorAll(className);
@@ -79,7 +122,12 @@ const log = console.log;
       log(`Direction of ${direction} has been set!`);
     },
 
-    //textlist should have the same length of the group, otherwise the subtitle will be the same elements and all the same
+    /**
+     * Add titles to this group of images.
+     * @name ImageGenerator#addTitle
+     * @function
+     * @param {Array<string>} textlist -a list of titles. The list should have the same length of the group, otherwise all the titles will take the first one in the list and will be the same.
+     */
     addTitle(textlist) {
       className = `.${this.className}`;
       const imageContainers = document.querySelectorAll(className);
@@ -179,8 +227,22 @@ const log = console.log;
     },
   };
 
+  /**
+   * Initializes a new instance of MouseFollower.
+   * @constructs MouseFollower
+   */
   function MouseFollower() {
+    /**
+     * the object of generate mouse follower.
+     * @name MouseFollower#follower
+     * @type {Object}
+     */
     this.follower = {};
+    /**
+     * the duration(unit: seconds) of the mouse follower from it is generated to it is shut down.
+     * @name MouseFollower#duration
+     * @type {number}
+     */
     this.duration = 0; //seconds before the user close the mouse follower
   }
 
@@ -189,6 +251,11 @@ const log = console.log;
   let _end = 0;
 
   MouseFollower.prototype = {
+    /**
+     * Generate a default mouse follower. It will be a pink square that follows the mouse, can be changed to other forms later.
+     * @name MouseFollower#generateMouseFollower
+     * @function
+     */
     generateMouseFollower() {
       _start = new Date().getTime();
       log(_start);
@@ -205,6 +272,15 @@ const log = console.log;
       this.follower = div;
     },
 
+    /**
+     * Set properties to the mouse follower.
+     * @name MouseFollower#setProperty
+     * @function
+     * @param {string} backgroundColor -the backgroundColor of the mouse follower, for example, "blue", "rgb(0,0,0)" or "#123456".
+     * @param {string} width -the width of the mouse follower, for example, "100px" or "10%".
+     * @param {string} height -the height of the mouse follower, for example, "100px" or "10%".
+     * @param {string} opacity -the heigopacityht of the mouse follower, for example, "0"(totally transparent),"0.5" or "1"(solid).
+     */
     setProperty(backgroundColor, width, height, opacity) {
       this.follower.style.backgroundColor = backgroundColor;
       this.follower.style.width = width;
@@ -212,6 +288,16 @@ const log = console.log;
       this.follower.style.opacity = opacity;
     },
 
+    /**
+     * Add a group of images to the mouse follower.
+     * Recommendation: 1. You should choose to use this or addText(), avoid using them together. 2. Keep the overlap to be true(default) and use with toggleImages() together. Then the mouse follower will be shown as one image(the first one in the imageUrls), and everytime the user "clicks"(or other interactions by setting in toggleImages), the image shown will change.
+     * @name MouseFollower#addImages
+     * @function
+     * @param {Array<string>} imagesUrl -a list of urls of images that will be added to the mouse follower.
+     * @param {string} imagesWidth -the width of the mouse follower, for example, "100px" or "10%".
+     * @param {string} imagesHeight -the height of the mouse follower, for example, "100px" or "10%".
+     * @param {boolean} [overlap] - If false then the images will be arranged as a row (optional. By default: true. These images will overlap each other, only the first one shown on the top.)
+     */
     addImages(imagesUrl, imagesWidth, imagesHeight, overlap = true) {
       const imagesContainer = this.follower;
       for (let i = 0; i < imagesUrl.length; i++) {
