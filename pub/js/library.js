@@ -1,3 +1,4 @@
+"use strict";
 const log = console.log;
 
 (function (global, document) {
@@ -15,6 +16,10 @@ const log = console.log;
     return `rgb(${r},${g},${b})`;
   }
 
+  function _updateCounter(selector, counter) {
+    const divCounter = document.querySelector(selector);
+    divCounter.innerHTML = counter;
+  }
   /**
    * Initializes a new instance of ImageGenerator.
    * @constructs ImageGenerator
@@ -83,7 +88,7 @@ const log = console.log;
      * @param {string} margin -margin of each image, for example, "1.5%" or "0 1.5%" or "10px 8px 6px 4px".
      */
     setSizeToGroup: function (width, margin) {
-      className = `.${this.className}`;
+      const className = `.${this.className}`;
       const imageContainers = document.querySelectorAll(className);
       for (let imageContainer of imageContainers) {
         imageContainer.style.width = width;
@@ -129,7 +134,7 @@ const log = console.log;
      * @param {Array<string>} textlist -a list of titles. The list should have the same length of the group, otherwise all the titles will take the first one in the list and will be the same.
      */
     addTitle(textlist) {
-      className = `.${this.className}`;
+      const className = `.${this.className}`;
       const imageContainers = document.querySelectorAll(className);
       let index = 0;
       for (let imageContainer of imageContainers) {
@@ -153,34 +158,38 @@ const log = console.log;
       eventType,
       elementCode,
       elementColor = "red",
-      elementSize = "200%"
+      elementSize = "200%",
+      bottomDistance = "8%",
+      rightDistance = "10%"
     ) {
-      className = `.${this.className}`;
+      const className = `.${this.className}`;
       const imageContainers = document.querySelectorAll(className);
       for (let imageContainer of imageContainers) {
         imageContainer.style.position = "relative";
         const element = document.createElement("div");
         element.innerHTML = elementCode;
-        element.style = `font-size:${elementSize};color:${elementColor};opacity:0.2;position:absolute;bottom:8%;right:10%`;
+        element.style = `font-size:${elementSize};color:${elementColor};opacity:0.2;position:absolute;bottom:${bottomDistance};right:${rightDistance}`;
         let likeStatus = "unlike";
-
         imageContainer.append(element);
         const self = this;
         imageContainer.addEventListener(eventType, function () {
+          const currentId = imageContainer.getAttribute("id");
+          const index = currentId.split(self.className).pop();
           if (likeStatus == "unlike") {
             element.style.opacity = "1";
             likeStatus = "like";
+            self.seperateCounter[index]++;
+            self.groupCounter++;
           } else {
             element.style.opacity = "0.2";
             likeStatus = "unlike";
+            self.seperateCounter[index]--;
+            self.groupCounter--;
           }
-          const currentId = imageContainer.getAttribute("id");
-          const index = currentId.split(self.className).pop();
-          self.seperateCounter[index]++;
+
           log(
             `${currentId} image in ${self.className} group counter: ${self.seperateCounter[index]}`
           );
-          self.groupCounter++;
           log(
             `the whole ${self.className} group counter: ${self.groupCounter}`
           );
@@ -193,12 +202,14 @@ const log = console.log;
     //elementCode: html code for the element, recommended:'&#128681(flag)','&hearts;'(heart).'&starf;'
     //elementSize should be 100%-500%
     addElements(
+      totalSelector, //where to update the total counter
+      seperateSelectors, //where to update the seperate counters
       eventType,
       elementCode = "&hearts;",
       elementColor = "red",
       elementSize = "200%"
     ) {
-      className = `.${this.className}`;
+      const className = `.${this.className}`;
       const body = document.querySelector("body");
       const imageContainers = document.querySelectorAll(className);
       const self = this;
@@ -215,12 +226,19 @@ const log = console.log;
           const currentId = imageContainer.getAttribute("id");
           const index = currentId.split(self.className).pop();
           self.seperateCounter[index]++;
-          log(`You've marked ${self.seperateCounter[index]} places`);
+          self.groupCounter++;
+          _updateCounter(seperateSelectors[index], self.seperateCounter[index]);
+          _updateCounter(totalSelector, self.groupCounter);
           body.append(element);
           element.addEventListener("click", function () {
             element.remove();
             self.seperateCounter[index]--;
-            log(`You've marked ${self.seperateCounter[index]} places`);
+            self.groupCounter--;
+            _updateCounter(
+              seperateSelectors[index],
+              self.seperateCounter[index]
+            );
+            _updateCounter(totalSelector, self.groupCounter);
           });
         });
       }
@@ -262,7 +280,7 @@ const log = console.log;
       const body = document.querySelector("body");
       const div = document.createElement("div");
       div.style =
-        "width:100px;height:100px;background-color:pink;position:absolute;font-family:Comic Sans MS;";
+        "width:100px;height:100px;background-color:pink;position:absolute;font-family:fantasy;";
       body.append(div);
 
       document.addEventListener("mousemove", function (e) {

@@ -1,13 +1,3 @@
-//make the header and title
-const body = document.querySelector("body");
-body.style = "font-family: Impact;";
-const h1 = document.querySelector("h1");
-h1.innerText = "Imagic Gallery";
-h1.style = "text-align:center;margin-bottom:0;";
-const description = document.querySelector("#description");
-description.innerText = "Click on the images you like";
-description.style = "margin:10px auto;color:gray;text-align:center;";
-
 /********
  Use the Imagic library
 ********/
@@ -31,13 +21,13 @@ function examples() {
     "https://styles.redditmedia.com/t5_1ys4bj/styles/profileIcon_968o7s5frbn41.jpg?width=256&height=256&crop=256:256,smart&frame=1&s=fdaa0f7cd2013d5f508976cfd4ff2e66cd6f8689",
     "https://cdn131.picsart.com/316184753010201.jpg?type=webp&to=crop&r=256",
     "https://i.pinimg.com/474x/d5/ff/4f/d5ff4fd9289929255beb60702ddd87f6.jpg",
-    "https://pbs.twimg.com/profile_images/602630130431762432/XJrnsLXy.jpg",
+    "https://cdn.technologynetworks.com/tn/images/thumbs/jpeg/360_360/scientists-use-ancient-dna-to-explore-history-of-dogs-342574.jpg",
     "https://cdn.domestika.org/c_fill,dpr_auto,h_256,t_base_params.format_jpg,w_256/v1385823949/avatars/000/024/711/24711-original.jpg?1385823949",
   ]);
   catImgs.setSizeToGroup("30%", "1.66%"); // catImgs.setSizeToGroup("15%", "15%", "0.83%");
-  dogImgs.setSizeToGroup("30%", "1.66%"); // dogImgs.setSizeToGroup("15%", "15%", "0.83%");
+  dogImgs.setSizeToGroup("15%", "0.83%"); // dogImgs.setSizeToGroup("15%", "15%", "0.83%");
   catImgs.addElement("click", "&hearts;");
-  dogImgs.addElement("click", "&hearts;");
+  dogImgs.addElement("click", "&#9728;", "yellow", "100%", "15%");
   catImgs.addTitle(catImgs.elements); //use the id as the title
   dogImgs.addTitle(dogImgs.elements); //use the id as the title
   // dogImgs.changeDirectionOfGroup("overlap");
@@ -50,15 +40,15 @@ function examples() {
   mf.addText(
     "Are you old enough to browse this website??",
     "20px",
-    "bold", //font-weight,
-    "#c94c4c",
+    100, //font-weight,
+    "#D2D6D9",
     "center"
   );
   mf.addText(
     "Press any key to delete this follower!",
     "15px",
     100, //"bold",
-    "#50394c",
+    "#C3C8CD",
     "center"
   );
   mf.updateTimer("#mouseFollowerTimer");
