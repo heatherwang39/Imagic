@@ -1,6 +1,5 @@
 const canvas = new ImageGenerator();
 const mf = new MouseFollower();
-const button = document.querySelector("button");
 
 function examples() {
   canvas.insertImages("other", [

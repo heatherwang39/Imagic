@@ -1,8 +1,3 @@
-/********
- Use the Imagic library
-********/
-
-//ImageGenerator API
 const catImgs = new ImageGenerator();
 const dogImgs = new ImageGenerator();
 const mf = new MouseFollower();
@@ -24,11 +19,11 @@ function examples() {
     "https://cdn.technologynetworks.com/tn/images/thumbs/jpeg/360_360/scientists-use-ancient-dna-to-explore-history-of-dogs-342574.jpg",
     "https://cdn.domestika.org/c_fill,dpr_auto,h_256,t_base_params.format_jpg,w_256/v1385823949/avatars/000/024/711/24711-original.jpg?1385823949",
   ]);
-  catImgs.setSizeToGroup("30%", "1.66%"); // catImgs.setSizeToGroup("15%", "15%", "0.83%");
-  dogImgs.setSizeToGroup("15%", "0.83%"); // dogImgs.setSizeToGroup("15%", "15%", "0.83%");
+  catImgs.setSizeToGroup("30%", "1.66%");
+  dogImgs.setSizeToGroup("15%", "0.83%");
   catImgs.addElement("click", "&hearts;");
   dogImgs.addElement("click", "&#9728;", "yellow", "100%", "15%");
-  catImgs.addTitle(catImgs.elements); //use the id as the title
+  catImgs.addTitle(catImgs.elements); //use the id as the title, can also be a list of titles, for example ["mewo","aowu","coolcat","blackcat","pirate","shycat"]
   dogImgs.addTitle(dogImgs.elements); //use the id as the title
 
   mf.generateMouseFollower();
@@ -39,13 +34,13 @@ function examples() {
     "Warning: Are you old enough to browse this website??",
     "20px",
     100, //font-weight,
-    "#D2D6D9",
+    "#801313",
     "center"
   );
   mf.addText(
     "Press any key to delete this follower!",
     "15px",
-    100, //"bold",
+    100,
     "#C3C8CD",
     "center"
   );

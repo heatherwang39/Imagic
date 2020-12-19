@@ -2,10 +2,6 @@
 const log = console.log;
 
 (function (global, document) {
-  //private variables
-  let _totalImageGroups = 0;
-  let _totalMouseFollowers = 0;
-
   //private functions
   function _randomColor() {
     const r = Math.floor(Math.random() * 255);
@@ -209,8 +205,8 @@ const log = console.log;
      */
     addElements(
       eventType,
-      totalSelector = null, //where to update the total counter
-      seperateSelectors = null, //where to update the seperate counters
+      totalSelector = null,
+      seperateSelectors = null,
       elementCode = "&hearts;",
       elementColor = "red",
       elementSize = "200%"
@@ -422,12 +418,6 @@ const log = console.log;
     },
   };
 
-  /* Can do all other library setup below without conflicting with the global namespace */
-  // ...
-  // ...
-
-  // After setup:
-  // Add the CircleGenerator to the window object if it doesn't already exist.
   global.ImageGenerator = global.ImageGenerator || ImageGenerator;
   global.MouseFollower = global.MouseFollower || MouseFollower;
 })(window, window.document);
