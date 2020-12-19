@@ -10,12 +10,20 @@ h1 {
   color: white;
 }
 
-#description {
+.description {
   margin: 10px auto;
   color: #d2d3d3;
   text-align: center;
+}
+
+#description1 {
   font-style: italic;
 }
+
+#description2 {
+  font-family: "Sans-serif";
+}
+
 p {
   background-color: rgba(255, 255, 255, 0.6);
   color: #2d3032;

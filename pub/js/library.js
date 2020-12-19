@@ -11,9 +11,9 @@ const log = console.log;
     const r = Math.floor(Math.random() * 255);
     const g = Math.floor(Math.random() * 255);
     const b = Math.floor(Math.random() * 255);
-    // const a = Math.random();
-    // return `rgba(${r},${g},${b},${a})`;
-    return `rgb(${r},${g},${b})`;
+    const a = Math.random();
+    return `rgba(${r},${g},${b},${a})`;
+    // return `rgb(${r},${g},${b})`;
   }
 
   function _updateCounter(selector, counter) {
@@ -293,7 +293,6 @@ const log = console.log;
      */
     generateMouseFollower() {
       _start = new Date().getTime();
-      log(_start);
       const body = document.querySelector("body");
       const div = document.createElement("div");
       div.style =
@@ -331,23 +330,19 @@ const log = console.log;
      * @param {Array<string>} imagesUrl -a list of urls of images that will be added to the mouse follower.
      * @param {string} imagesWidth -the width of the mouse follower, for example, "100px" or "10%".
      * @param {string} imagesHeight -the height of the mouse follower, for example, "100px" or "10%".
-     * @param {boolean} [overlap] - If false then the images will be arranged as a row (optional. By default: true. These images will overlap each other, only the first one shown on the top.)
      */
-    addImages(imagesUrl, imagesWidth, imagesHeight, overlap = true) {
+    addImages(imagesUrl, imagesWidth, imagesHeight) {
       const imagesContainer = this.follower;
       for (let i = 0; i < imagesUrl.length; i++) {
         const imageContainer = document.createElement("div");
         imageContainer.setAttribute("class", "followingImages");
-        imageContainer.style = `display:inline-block;width:${imagesWidth}; height: ${imagesHeight};`;
+        imageContainer.style = `display:none;width:${imagesWidth}; height: ${imagesHeight};`; //hide all the images
+        if (i == 0) {
+          imageContainer.style.display = "inline-block"; //make the first image show
+        }
         const image = document.createElement("img");
         image.setAttribute("src", imagesUrl[i]);
         image.style = "width:100%;height:100%;position:abosulute;";
-        if (overlap) {
-          imageContainer.style.position = "absolute";
-          imageContainer.style.top = "0";
-          imageContainer.style.left = "0";
-          imageContainer.style.zIndex = imagesUrl.length - i;
-        }
         imageContainer.append(image);
         imagesContainer.append(imageContainer);
       }
@@ -360,18 +355,17 @@ const log = console.log;
      * @param {string} event -the way the developer wants the user to switch images. Can be any event, for example, "click", "keydown" or "mousemove".
      */
     toggleImages(event) {
-      const body = document.querySelector("body");
       const images = document.querySelectorAll(".followingImages");
       let count = 0;
-      body.addEventListener(event, function () {
+      document.addEventListener(event, function () {
         if (count < images.length - 1) {
           images[count].style.display = "none";
+          images[count + 1].style.display = "inline-block";
           count++;
         } else {
-          for (let image of images) {
-            image.style.display = "inline-block";
-          }
+          images[count].style.display = "none";
           count = 0;
+          images[count].style.display = "inline-block";
         }
       });
     },
@@ -407,7 +401,6 @@ const log = console.log;
         self.follower.remove();
         _end = new Date().getTime();
         self.duration = (_end - _start) / 1000;
-        log(self.duration);
       });
     },
 
@@ -419,7 +412,6 @@ const log = console.log;
      */
     updateTimer(selector) {
       const divTimer = document.querySelector(selector);
-      log(divTimer);
       const update = setInterval(() => {
         const now = new Date().getTime();
         divTimer.innerHTML = Math.floor((now - _start) / 1000);

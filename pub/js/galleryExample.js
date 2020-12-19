@@ -30,15 +30,13 @@ function examples() {
   dogImgs.addElement("click", "&#9728;", "yellow", "100%", "15%");
   catImgs.addTitle(catImgs.elements); //use the id as the title
   dogImgs.addTitle(dogImgs.elements); //use the id as the title
-  // dogImgs.changeDirectionOfGroup("overlap");
 
   mf.generateMouseFollower();
   mf.removeMouseFollowerBy("keydown");
-
   mf.setProperty("#f7cac900", "auto", "auto", 1);
 
   mf.addText(
-    "Are you old enough to browse this website??",
+    "Warning: Are you old enough to browse this website??",
     "20px",
     100, //font-weight,
     "#D2D6D9",
@@ -55,24 +53,3 @@ function examples() {
 }
 
 examples();
-
-//catImgs.changeDirectionOfGroup("column");//align as row by default. can be row, column and overlap
-
-// catImgs.addTitle(["Jimmy", "Becky", "Heather", "Tom", "Jerry", "Aya"]);
-
-//MouseFollower API
-
-// mf.addImages(
-//   [
-//     "https://i.pinimg.com/originals/06/87/85/0687851cc6a9bb1213b5a12c9f8408ac.png",
-//     "https://www.dictionary.com/e/wp-content/uploads/2018/09/smirking-face-300x300.png",
-//     "https://i.pinimg.com/originals/33/f2/95/33f29537979ddcc9512bd9b07413c37e.png",
-//     "https://www.papertraildesign.com/wp-content/uploads/2017/06/emoji-nerd-glasses.png",
-//   ],
-//   "50px",
-//   "50px",
-//   true
-// );
-// mf.toggleImages("click");
-
-//the mousefollower should either be overlap images or text

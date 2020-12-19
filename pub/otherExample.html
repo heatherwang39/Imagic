@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Example</title>    
+    <link rel="stylesheet" href="styles/exampleStyles.css">
+    <!-- load a script of our library -->
+    <script defer type="text/javascript" src='js/library.js'></script>
+    <!-- Then we load an example script that depends on our libraries-->
+    <script defer type="text/javascript" src='js/otherExample.js'></script>
+</head>
+<body>
+    <h1>Imagic Other Example</h1>
+    <div class= "description" id="description1">Move and click your mouse!</div> 
+    <div class= "description" id="description2">Mainly used API: 1.ImageGenerator->insertImages, addElements by "mousemove" event, "music" element and random color.<br>
+        2.MouseFollower->addImages, toggleImages by "click" event, removeMouseFollowerBy "keydown" event ,and updateTimer.</div> 
+    <p>The Mouse Follower ran for <span id="mouseFollowerTimer"></span> seconds before being shut down.</p>
+</body>
+</html>
