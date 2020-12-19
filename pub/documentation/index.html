@@ -17,17 +17,41 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
-
-    
+    <h1 class="page-title">Imagic Library Documentation</h1>
 
 
 
-    
 
+    <h2>Getting Started </h2>
+<p>There are two APIs in the Imagic library, the ImageGenerator API and MouseFollower API.<br>
+Instructions for using ImageGenerator: <br>
+1. Initialize a new ImageGenerator(). <br>
+2. You need to call insertImages(className, imagesUrl) first to add a group of images to your page.
+The imagesUrl needs to be an array, even if you only want to insert one image. Some properties have been set to this group of images, but you can still modify them by using setSizeToGroup().
+You can also change the direction of your images by using changeDirectionOfGroup() to make them arrange as columns or overlap with each other.
+If you want to add titles to each image, you can use addTitle() and input a list of titles. <br>
+3. To add some interactive element, you can choose <br>
+(1)addElement, to add an element that can interact with the user by html code to a fixed postion of each image in this group. The interaction can be any event like "click", "mouseover" or "keydown". 
+The element will be "&hearts;" by default(&hearts), and it can be any html codes, for example,  "&#9873;"(flag),"&#9728;"(sun). You can also change its color and position if you want. Each element will have their own counters for 
+recording how many times the user performs interaction, and there is also a total counter for the whole group recording the number of interactions. You have access to them by the groupCounter and seperateCounter members in this API.<br>
+(2)addElements, Add multiple repeating elements as the response to user's operations to each image in this group. The position of the added elements is the position of the user's mouse. The added elements can be removed by clicking on itself again.
+The element will be "&hearts;" by default(&hearts), and it can be any html codes, for example,  "&#9873;"(flag),"&#9728;"(sun). You can also change its color and position if you want. Each element will have their own counters for 
+recording how many times the user performs interaction, and there is also a total counter for the whole group recording the number of interactions. You have access to them by the groupCounter and seperateCounter members in this API.
+If you want to update the counter to the website, you can specify the totalSelector or seperate selectors to determine where to update the counter. This functionality is shown in the Map Example.
+</p>
 
-    <h3> </h3>
-
+<p>There are two APIs in the Imagic library, the ImageGenerator API and MouseFollower API.<br>
+    Instructions for using MouseFollower: <br>
+    1. Initialize a new MouseFollower(). <br>
+    2. You need to call generateMouseFollower() first to generate a default mouse follower. It will be a pink square that follows the mouse, can be changed to other forms later.<br>
+    3. Some properties have been set to this mouse follower, but you can still modify them by using setProperty() and set the background color, width, opacity, etc.<br>
+    4. There are two types mouse follower you can choose: <br>
+    (1)text mouse follower by using addText(). See the Gallery Example.
+    (2)images mouse follower by using addImages(). You can add a group of images but only the first one in the imagesUrls will show, others will hide temporarily.
+    Then you can use toggleImages(event), to specify how the user can switch the images. See the Map Example(image follower without toggleImages) and Other Example(image follower without toggleImages("click")).<br>
+    5. You can specify how the user can shut down the mouser follower by using removeMouseFollowerBy().<br>
+    6. Use updateTimer() to specify where to show the duration of the mouse follower. See the Gallery Example and Other Example.<br>
+    </p>
 
 
 

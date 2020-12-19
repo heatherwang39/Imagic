@@ -405,8 +405,8 @@ const log = console.log;
     },
 
     /**
-     * Specify how the user can shut down(remove) the mouser follower.
-     * @name MouseFollower#removeMouseFollowerBy
+     * Specify where to show the duration of the mouse follower.
+     * @name MouseFollower#updateTimer
      * @function
      * @param {string} selector -The css selector of where the developer wants to update the information of the duration of the mouse follower(how long it has been run before the user shut it down). Can be any CSS selectors, for example, "#duration".
      */
