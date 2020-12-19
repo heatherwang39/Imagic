@@ -3,7 +3,7 @@ const mf = new MouseFollower();
 
 function examples() {
   mapImg.insertImages("uoft", [
-    "http://collegesinontario.com/wp-content/uploads/2018/12/University-of-Toronto-Map.jpg",
+    "https://map-of-toronto.com/img/1200/university-of-toronto-st-georges-campus-map.jpg",
     "https://www.utm.utoronto.ca/sites/files/default/public/shared/studentaffairs/images/CampusMap_bw_final.jpg",
   ]);
   mapImg.setSizeToGroup("80%", "0 10% 1% 10%");
