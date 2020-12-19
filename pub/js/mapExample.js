@@ -8,11 +8,10 @@ function examples() {
   mapImg.setSizeToGroup("80%", "0 10% 5% 10%");
 
   mapImg.addElements(
+    "click",
     "#totalCounter",
     ["#seperateCounter0", "#seperateCounter1"],
-    "click",
-    "&#128681",
-    "random"
-  ); //sun(&#9728;),flag(&#128681)
+    "&#9873"
+  ); //sun(&#9728;),flag(&#9873)
 }
 examples();

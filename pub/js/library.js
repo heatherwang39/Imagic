@@ -32,7 +32,7 @@ const log = console.log;
      */
     this.className = "";
     /**
-     * counter for the this whole group of images.
+     * counter for the this whole group of images. The counter counts the sum of interactions the user has performed to each image in this group.
      * @name ImageGenerator#groupCounter
      * @type {number}
      */
@@ -44,7 +44,7 @@ const log = console.log;
      */
     this.elements = [];
     /**
-     * counter for each element in this group of images.
+     * counter for each element in this group of images. The index of counter is determined by the order of the imagesUrls. Every counter counts how many interactions the user has performed to the image.
      * @name ImageGenerator#seperateCounter
      * @type {Array}
      */
@@ -151,12 +151,20 @@ const log = console.log;
       }
     },
 
-    //event:click,mouover,keydown
-    //elementCode: html code for the element, recommended:'&#128681(flag)','&hearts;'(heart),'&starf;'(star),'&clubs;'(club in poker)
-    //elementSize should be 100%-500%
+    /**
+     * Add an element that can interact with the user by html code to a fixed postion of each image in this group.
+     * @name ImageGenerator#addElement
+     * @function
+     * @param {string} eventType -The way for user to interact, for example, "click", "mouseover" or "keydown".
+     * @param {string} [elementCode] -(optional)The html code for the interactive element,"&hearts;" by default(&hearts). Can be any html codes, for example,  "&#9873;"(flag-&#9873),"&#9728;"(sun-&#9728).
+     * @param {string} [elementColor] -(optional)The color of the interactive element, "red" by default. Can be any color, for example, "blue", "rgb(0,0,0)" or "#123456".
+     * @param {string} [elementSize] -(optional)The size of the interactive element, "200%" by default. Can be any size, for example, "100%" or "500%".
+     * @param {string} [bottomDistance] -(optional)Justify the position to bottom of the interactive element, "8%" by default. Can be any value, for example, "20%", "20px".
+     * @param {string} [bottomDistance] -(optional)Justify the position to right of the interactive element, "10%" by default. Can be any value, for example, "20%", "20px".
+     */
     addElement(
       eventType,
-      elementCode,
+      elementCode = "&hearts;",
       elementColor = "red",
       elementSize = "200%",
       bottomDistance = "8%",
@@ -178,33 +186,31 @@ const log = console.log;
           if (likeStatus == "unlike") {
             element.style.opacity = "1";
             likeStatus = "like";
-            self.seperateCounter[index]++;
-            self.groupCounter++;
           } else {
             element.style.opacity = "0.2";
             likeStatus = "unlike";
-            self.seperateCounter[index]--;
-            self.groupCounter--;
           }
-
-          log(
-            `${currentId} image in ${self.className} group counter: ${self.seperateCounter[index]}`
-          );
-          log(
-            `the whole ${self.className} group counter: ${self.groupCounter}`
-          );
-          //update the counter
+          self.seperateCounter[index]++;
+          self.groupCounter++;
         });
       }
     },
 
-    //event:click,mouover,keydown
-    //elementCode: html code for the element, recommended:'&#128681(flag)','&hearts;'(heart).'&starf;'
-    //elementSize should be 100%-500%
+    /**
+     * Add multiple repeating elements as the response to user's operations to each image in this group. The position of the added elements is the position of the user's mouse. The added elements can be removed by clicking on itself again.
+     * @name ImageGenerator#addElements
+     * @function
+     * @param {string} eventType -The way for user to interact, for example, "click", "mouseover" or "keydown".
+     * @param {string} [totalSelector] -(optional)The css selector of where the developer wants to update the information of the total counter for all images in this group. Set as "null" by default when the developer doesn't need to show the counter in the website. Can be any CSS selectors, for example, "#totalCounter".
+     * @param {Array<string>} [seperateSelectors] -(optional)The css selector of where the developer wants to update the information of the seperate counter for each image in this group. Set as "null" by default when the developer doesn't need to show the counter in the website. It should be a list of CSS selectors and has the same length as the imageUrls. Can be any CSS selectors, for example, "#seperateCounter1".
+     * @param {string} [elementCode] -(optional)The html code for the elements,"&hearts;" by default(&hearts;). Can be any html codes, for example,  "&#9873;"(flag-&#9873),"&#9728;"(sun-&#9728).
+     * @param {string} [elementColor] -(optional)The color of the elements, "red" by default. Can be "random"(will choose random color for each interactions) or any other colors, for example, "blue", "rgb(0,0,0)" or "#123456".
+     * @param {string} [elementSize] -(optional)The size of the elements, "200%" by default. Can be any size, for example, "100%" or "500%".
+     */
     addElements(
-      totalSelector, //where to update the total counter
-      seperateSelectors, //where to update the seperate counters
       eventType,
+      totalSelector = null, //where to update the total counter
+      seperateSelectors = null, //where to update the seperate counters
       elementCode = "&hearts;",
       elementColor = "red",
       elementSize = "200%"
@@ -227,18 +233,29 @@ const log = console.log;
           const index = currentId.split(self.className).pop();
           self.seperateCounter[index]++;
           self.groupCounter++;
-          _updateCounter(seperateSelectors[index], self.seperateCounter[index]);
-          _updateCounter(totalSelector, self.groupCounter);
+          if (totalSelector != null) {
+            _updateCounter(totalSelector, self.groupCounter);
+          }
+          if (seperateSelectors != null) {
+            _updateCounter(
+              seperateSelectors[index],
+              self.seperateCounter[index]
+            );
+          }
           body.append(element);
           element.addEventListener("click", function () {
             element.remove();
             self.seperateCounter[index]--;
             self.groupCounter--;
-            _updateCounter(
-              seperateSelectors[index],
-              self.seperateCounter[index]
-            );
-            _updateCounter(totalSelector, self.groupCounter);
+            if (totalSelector != null) {
+              _updateCounter(totalSelector, self.groupCounter);
+            }
+            if (seperateSelectors != null) {
+              _updateCounter(
+                seperateSelectors[index],
+                self.seperateCounter[index]
+              );
+            }
           });
         });
       }
@@ -336,6 +353,12 @@ const log = console.log;
       }
     },
 
+    /**
+     * Used after the addImages() fucntion is called. Specifies how the user switches between images. For example, When user "click"s, the image shown on the top will change.
+     * @name MouseFollower#toggleImages
+     * @function
+     * @param {string} event -the way the developer wants the user to switch images. Can be any event, for example, "click", "keydown" or "mousemove".
+     */
     toggleImages(event) {
       const body = document.querySelector("body");
       const images = document.querySelectorAll(".followingImages");
@@ -353,6 +376,16 @@ const log = console.log;
       });
     },
 
+    /**
+     * Add text to the mouse follower.
+     * Recommendation: You should choose to use this or addImages(), avoid using them together.
+     * @name MouseFollower#addText
+     * @function
+     * @param {string} text -Text added to the mouse follower.
+     * @param {string} fontSize -Font size of the added text. For example, "20px".
+     * @param {string} color -Color of the added text. For example, "blue", "rgb(0,0,0)".
+     * @param {string} align -Alignment of the added text. For example, "center".
+     */
     addText(text, fontSize, fontWeight, color, align) {
       const textContainer = this.follower;
       const textDiv = document.createElement("div");
@@ -361,7 +394,12 @@ const log = console.log;
       textContainer.append(textDiv);
     },
 
-    //event could be "keydown","click"
+    /**
+     * Specify how the user can shut down(remove) the mouser follower.
+     * @name MouseFollower#removeMouseFollowerBy
+     * @function
+     * @param {string} event -the way the developer wants the user to remove the mouser follower. Can be any event, for example, "click", "keydown" or "mousemove".
+     */
     removeMouseFollowerBy(event) {
       const body = document.querySelector("body");
       const self = this;
@@ -373,6 +411,12 @@ const log = console.log;
       });
     },
 
+    /**
+     * Specify how the user can shut down(remove) the mouser follower.
+     * @name MouseFollower#removeMouseFollowerBy
+     * @function
+     * @param {string} selector -The css selector of where the developer wants to update the information of the duration of the mouse follower(how long it has been run before the user shut it down). Can be any CSS selectors, for example, "#duration".
+     */
     updateTimer(selector) {
       const divTimer = document.querySelector(selector);
       log(divTimer);
