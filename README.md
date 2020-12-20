@@ -8,7 +8,11 @@ You can access the site [here](https://imagic-library.herokuapp.com/). Or copy t
 
 ## Getting Started
 
+### Setting up the library
+
 To use this library you need to add **"&lt;script defer type="text/javascript" src='js/library.js'&gt;&lt;/script&gt;"**</b> to the head in your html file.</h4>
+
+### Basic Tutorial
 
 There are two APIs in the Imagic library, the **ImageGenerator** API and **MouseFollower** API.
 
