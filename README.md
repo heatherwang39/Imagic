@@ -1,6 +1,6 @@
 # Imagic
 
-A Library makes inserting images easy, adding interactable elements simple and generating mouse followers funny.
+Imagic is a Front-end library with 2 Image-processing APIs based on JavaScript, CSS and HTML. It allows developers to manipulate DOM very easily. With Imagic, developers can generate, insert and customize images to web pages with simple commands. Developers can also add user interactive options to the images, or convert the image to a mouse follower with simple commands. The number of image interactions and the time the images are displayed are also recorded for analysis in the backend. Imagic is very useful for building an interactive website, for example, a social media website that allows the user to click liked images, or an eCommerce website that wants to attach an advertisement to users' mouse. 
 
 ## Link
 
