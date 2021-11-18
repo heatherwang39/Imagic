@@ -4,7 +4,7 @@ Imagic is a Front-end library with 2 Image-processing APIs based on JavaScript, 
 
 ## Link
 
-You can access the site [here](https://imagic-library.herokuapp.com/). Or copy this URL: https://imagic-library.herokuapp.com/
+To see some examples of the implementation of Imagic, you can access the example site [here](https://imagic-library.herokuapp.com/). Or copy this URL: https://imagic-library.herokuapp.com/
 
 ## Getting Started
 
